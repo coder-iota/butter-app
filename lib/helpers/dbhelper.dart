@@ -11,7 +11,7 @@ class DBHelper {
           onCreate: (db, version) {
         try {
           return db.execute(
-              'CREATE TABLE ${DBHelper.tableName}( id INTEGER PRIMARY KEY, descendants INTEGER, score INTEGER, by TEXT, title TEXT, url TEXT, time TEXT)');
+              'CREATE TABLE ${DBHelper.tableName}( id INTEGER PRIMARY KEY, by TEXT, title TEXT, url TEXT, time TEXT)');
         } catch (err) {
           throw Exception("Error Creating DB");
         }

@@ -1,3 +1,6 @@
+import 'package:butter_app/widgets/custom_drawer.dart';
+import 'package:butter_app/widgets/favorite_button.dart';
+
 import '../providers/stories.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +12,7 @@ class StoryListScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("List of Stories"),
         ),
+        drawer: CustomDrawer(),
         body: FutureBuilder(
           future: Provider.of<Stories>(context).fetchLatestStories(),
           builder: (context, AsyncSnapshot<List<int>> snap) {
@@ -31,10 +35,6 @@ class StoryListScreen extends StatelessWidget {
                       return const ListTile(
                         title: Text("Loading..."),
                         subtitle: Text("Loading..."),
-                        trailing: IconButton(
-                          onPressed: null,
-                          icon: Icon(Icons.favorite),
-                        ),
                       );
                     }
 
@@ -43,13 +43,11 @@ class StoryListScreen extends StatelessWidget {
                     final tempDate = story?.time == null
                         ? "Error Fetching Date"
                         : story!.time.toString();
+
                     return ListTile(
                       title: Text(tempTitle),
                       subtitle: Text(tempDate),
-                      trailing: const IconButton(
-                        onPressed: null,
-                        icon: Icon(Icons.favorite),
-                      ),
+                      trailing: FavoriteButton(story: story, isFav: false),
                     );
                   },
                 );
