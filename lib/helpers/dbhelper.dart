@@ -40,12 +40,21 @@ class DBHelper {
     }
   }
 
-  static Future<int> removeFromFavorite(int storyId) async{
+  static Future<int> removeFromFavorite(int storyId) async {
     final db = await _database();
-    try{
-    return db.delete(tableName, where: "id = ?", whereArgs: [storyId]);
-    } catch (err){
+    try {
+      return db.delete(tableName, where: "id = ?", whereArgs: [storyId]);
+    } catch (err) {
       throw Exception("Error deleting from fav.");
+    }
+  }
+
+  static Future<List<Map<String, Object?>>> getAllFavIds() async {
+    final db = await _database();
+    try {
+      return db.query(tableName, columns: ["id"]);
+    } catch (e) {
+      throw Exception("Error fetching all Ids.");
     }
   }
 }

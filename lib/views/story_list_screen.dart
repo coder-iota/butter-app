@@ -1,6 +1,6 @@
-import 'package:butter_app/widgets/custom_drawer.dart';
-import 'package:butter_app/widgets/favorite_button.dart';
-
+import 'package:intl/intl.dart';
+import '../widgets/custom_drawer.dart';
+import '../widgets/favorite_button.dart';
 import '../providers/stories.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,20 +33,23 @@ class StoryListScreen extends StatelessWidget {
                   builder: (context, AsyncSnapshot<dynamic> storySnap) {
                     if (storySnap.connectionState != ConnectionState.done) {
                       return const ListTile(
-                        title: Text("Loading..."),
-                        subtitle: Text("Loading..."),
+                        title: Text(""),
+                        subtitle: Text(""),
                       );
                     }
 
                     final story = storySnap.data;
                     final tempTitle = story?.title ?? "Error Fetching Title";
+                    
                     final tempDate = story?.time == null
-                        ? "Error Fetching Date"
-                        : story!.time.toString();
+                        ? null
+                        : story!.time;
+                    final dateString = tempDate==null?"Error loading date":DateFormat.yMd().add_jm().format(tempDate);
 
                     return ListTile(
+                      isThreeLine: true,
                       title: Text(tempTitle),
-                      subtitle: Text(tempDate),
+                      subtitle: Text(dateString + "\n" + story.by),
                       trailing: FavoriteButton(story: story, isFav: false, disabled: tempTitle=="Story Unavailable",),
                     );
                   },

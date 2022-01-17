@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:butter_app/helpers/dbhelper.dart';
+import '../helpers/dbhelper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,13 +12,9 @@ class Stories with ChangeNotifier {
 
   List<int> _stories = [];
 
-
-
   List<int> get stories {
     return [..._stories];
   }
-
-
 
   Future<List<int>> fetchLatestStories() async {
     final response = await http.get(Uri.parse(latestStoriesUri));
@@ -35,7 +31,19 @@ class Stories with ChangeNotifier {
     }
   }
 
-
+  Future<bool> hasFavoriteStoryWithId(int id) async {
+    final queryResult = await DBHelper.getAllFavIds();
+    List<int> favIds = [];
+    for(var resultSet in queryResult){
+      favIds.add(int.parse(resultSet["id"].toString()));
+    }
+        if(favIds.contains(id)){
+          return true;
+        }
+        else{
+          return false;
+        }
+  }
 
   Future<Story> getStoryById(int id) async {
     final storyByIdUri = "https://hacker-news.firebaseio.com/v0/item/$id.json";
@@ -46,6 +54,7 @@ class Stories with ChangeNotifier {
         if(storyJson["type"] != "story"){
           return Story(id: id, by: "Invalid Story", time: DateTime.now(), title: "Story Unavailable", url: "https://www.butter.us/");
         }
+
         return Story.fromJson(storyJson);
       } catch (e) {
         throw Exception("Error Parsing JSON for Story $id.");
