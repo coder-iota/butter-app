@@ -1,7 +1,7 @@
-import 'package:butter_app/models/story.dart';
-import 'package:butter_app/providers/stories.dart';
-import 'package:butter_app/widgets/custom_drawer.dart';
-import 'package:butter_app/widgets/favorite_button.dart';
+import '../models/story.dart';
+import '../providers/stories.dart';
+import '../widgets/custom_drawer.dart';
+import '../widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,18 +26,20 @@ class FavoriteStoriesScreen extends StatelessWidget {
 
           final stories = favStoriesSnap.data;
 
-          print("Runtime Stories = " + stories.runtimeType.toString());
-          
-          return ListView.builder(
-            itemCount: stories?.length,
-            itemBuilder: (context, inx) {
-              final story = stories![inx];
-              return ListTile(
-                  title: Text(story.title),
-                  subtitle: Text(story.time.toString()),
-                  trailing: FavoriteButton(story: story, isFav: true));
-            },
-          );
+          return stories?.length == 0
+              ? const Center(
+                  child: Text("No Favorites Added"),
+                )
+              : ListView.builder(
+                  itemCount: stories?.length,
+                  itemBuilder: (context, inx) {
+                    final story = stories![inx];
+                    return ListTile(
+                        title: Text(story.title),
+                        subtitle: Text(story.time.toString()),
+                        trailing: FavoriteButton(story: story, isFav: true));
+                  },
+                );
         },
       ),
     );

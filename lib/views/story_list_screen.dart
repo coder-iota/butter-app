@@ -10,7 +10,7 @@ class StoryListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("List of Stories"),
+          title: const Text("Top Stories"),
         ),
         drawer: CustomDrawer(),
         body: FutureBuilder(
@@ -47,7 +47,7 @@ class StoryListScreen extends StatelessWidget {
                     return ListTile(
                       title: Text(tempTitle),
                       subtitle: Text(tempDate),
-                      trailing: FavoriteButton(story: story, isFav: false),
+                      trailing: FavoriteButton(story: story, isFav: false, disabled: tempTitle=="Story Unavailable",),
                     );
                   },
                 );
