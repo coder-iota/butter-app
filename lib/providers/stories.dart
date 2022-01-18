@@ -43,7 +43,7 @@ class Stories with ChangeNotifier {
       try {
         Map<String, dynamic> storyJson = jsonDecode(response.body);
 
-        // Due to Inconsistent data recieved from the API. Displayed with disabled Fav button. 
+        // Due to Inconsistent data recieved from the API. Displayed with disabled Fav button.
         if (storyJson["type"] != "story") {
           return Story(
               id: id,
@@ -78,7 +78,7 @@ class Stories with ChangeNotifier {
   Future<List<Story>> getFavoriteStories() async {
     final favStoriesValues = await DBHelper.getAllFavorites();
 
-    // Mapping the values received to real objects. 
+    // Mapping the values received to real objects.
     List<Story> favoriteStories = [];
     for (var storyValues in favStoriesValues) {
       favoriteStories.add(Story.fromDbValues(storyValues));

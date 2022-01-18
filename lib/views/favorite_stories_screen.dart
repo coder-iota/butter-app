@@ -5,26 +5,22 @@ import '../widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// Favorite stories Screen 
+// Favorite stories Screen
 class FavoriteStoriesScreen extends StatelessWidget {
   FavoriteStoriesScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: const Text("Favorite Stories"),
       ),
-      
       drawer: CustomDrawer(),
-      
       body: FutureBuilder(
         // Awaits the list of currently stored favorite stories.
         future: Provider.of<Stories>(context).getFavoriteStories(),
 
         builder: (context, AsyncSnapshot<List<Story>> favStoriesSnap) {
-          
           // Displays progress indicator till the future is resolved.
           if (favStoriesSnap.connectionState != ConnectionState.done) {
             return const Center(

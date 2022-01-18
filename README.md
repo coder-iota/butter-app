@@ -1,16 +1,20 @@
-# butter_app
+# Butter Top Stories Application
+___
+A demo flutter application made as an internship task at The Butter App. 
 
-A new Flutter project.
-
-## Getting Started
+## Requirements
+___
 
 This project is a starting point for a Flutter application.
+follow [these instructions]() to set up the Dart and Flutter SDK environment running on your system.
 
-A few resources to get you started if this is your first Flutter project:
+Also run the following command in the root of your project to get all the dependencies
+    flutter pub get
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Running the App
+___
+To run the project in `debug` mode, run the following command in the project root
+    flutter run
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To run the project in `release` mode, run the following command in the project root
+    flutter run -release
